@@ -67,3 +67,47 @@ cd ../frontend
 npm start
 ```
 แอปพลิเคชันจะรันที่ http://localhost:3000
+
+## API Documentation
+
+### Calculate Total Price
+
+**Endpoint:** `/api/calculate`
+
+**Method:** `POST`
+
+**Request Body:**
+```json
+{
+  "order": [
+    {
+      "Name": "string",
+      "quantity": "number"
+    }
+  ],
+  "hasMemberCard": "string"
+}
+```
+
+**Response:**
+- **Success (200):**
+  ```json
+  {
+    "totalPrice": "number"
+  }
+  ```
+- **Error (400):**
+  ```json
+  {
+    "massage": "Invalid Request"
+  }
+  ```
+- **Error (500):**
+  ```json
+  {
+    "massage": "Internal Server Error {error_message}"
+  }
+  ```
+
+**Description:**
+End point นี้คำนวณราคาทั้งหมดของการสั่งซื้อ หากมีชุดสินค้า Orange_set, Pink_set, Green_set ที่เป็นคู่ จะมีการให้ส่วนลด 5% ต่อคู่  และถ้าผู้ใช้มีบัตรสมาชิก จะได้รับส่วนลด 10% จากราคาทั้งหมด
