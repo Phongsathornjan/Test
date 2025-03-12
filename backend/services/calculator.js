@@ -18,17 +18,21 @@ function calculateTotalPrice (req , res) {
             "Orange_set": 120
         };
         let totalPrice = 0;
+        
         order.forEach(item => {
             if (item.quantity > 0) {
                 if ((item.Name === "Orange_set" || item.Name === "Pink_set" || item.Name === "Green_set") && item.quantity >= 2) {
                     const NumberOfDouble = Math.floor(item.quantity / 2);
-                    totalPrice += (MENU[item.Name] * item.quantity) - (MENU[item.Name] * item.quantity * 0.05);
+                    //5% discount applies to each pair, for example, if a customer orders 4 Orange sets, the calculation be like this: (120 * 2) - 5% + (120 * 2) - 5%?
+                    totalPrice += (MENU[item.Name] * item.quantity) - (MENU[item.Name] * 2 * NumberOfDouble * 0.05);
                 } else {
+                    //Normal price
                     totalPrice += MENU[item.Name] * item.quantity;
                 }
             }
         });
 
+        //and if you have a member card, you will get a 10% discount on the total price.
         if(hasMemberCard === "1"){
             totalPrice = totalPrice - (totalPrice * 0.1)
         }

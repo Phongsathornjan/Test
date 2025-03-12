@@ -1,10 +1,12 @@
 const express = require('express');
+const cors = require('cors');
 
 const app = express();
 const port = 4001;
 
 const { calculateTotalPrice } = require('./services/calculator');
 
+app.use(cors());
 app.use(express.json())
 
 app.post("/api/calculate" , (req , res) => {
